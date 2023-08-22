@@ -1,0 +1,34 @@
+const { Router } = require('express');
+const {
+  getAllUsers,
+  follow,
+  unfollow,
+} = require('../controller/userController');
+const {
+  signup,
+  login,
+  logout,
+  protect,
+  updateUserPassword,
+} = require('../controller/authController');
+const {
+  signup_page,
+  login_page,
+  user_dashboard,
+} = require('../controller/renderPage');
+
+const router = Router();
+
+router.route('/signup').get(signup_page).post(signup);
+router.route('/login').get(login_page).post(login);
+router.get('/logout', protect, logout);
+
+router.get('/dashboard', protect, user_dashboard);
+
+router.patch('/follow/:id', protect, follow);
+router.patch('/unfollow/:id', protect, unfollow);
+
+router.get('/', protect, getAllUsers);
+router.patch('/update-user', protect, updateUserPassword);
+
+module.exports = router;

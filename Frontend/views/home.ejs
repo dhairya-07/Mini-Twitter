@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitter Clone - Home</title>
+    <link rel="stylesheet" href="/styles/home.css" />
+  </head>
+  <body data-current-user="<%= JSON.stringify(locals.currentUser) %>">
+    <header class="header">
+      <div class="container">
+        <h1 class="logo">Mini Twitter</h1>
+        <nav>
+          <ul>
+            <% if (locals.currentUser) { %>
+            <li><a href="/api/v1/user/create-tweet">Create Tweet</a></li>
+            <li><a href="/api/v1/home">Home</a></li>
+            <li><a href="/api/v1/user/dashboard">Profile</a></li>
+            <li><a href="/api/v1/user/logout">Logout</a></li>
+            <% } else { %>
+            <li><a href="/api/v1/user/signup">Signup</a></li>
+            <li><a href="/api/v1/user/login">Login</a></li>
+            <% } %>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="tweets-section">
+        <ul class="tweets-list">
+          <% tweets.forEach(function(tweet) { %> <% if
+          (currentUser.following.includes(tweet.createdBy.id) ||
+          currentUser.id===tweet.createdBy.id) { %>
+          <li class="tweet">
+            <div class="tweet-user">
+              <img
+                class="tweet-user-image"
+                src="<%=tweet.createdBy.profileImageUrl %>"
+                alt="User image"
+              />
+              <span class="tweet-username"><%=tweet.createdBy.username%></span>
+            </div>
+            <div class="tweet-date">
+              <p>
+                Posted on: <%= tweet.createdAt.toLocaleString("en-US", {
+                weekday: "long", year: "numeric", month: "long", day: "numeric",
+                }) %>
+              </p>
+            </div>
+            <div class="tweet-content">
+              <p><%= tweet.content %></p>
+              <% if (tweet.media) { %>
+              <img
+                src="/images/tweet-images/<%= tweet.media %>"
+                alt="Tweet Media"
+              />
+              <% } %>
+            </div>
+            <div class="tweet-actions">
+              <a href="#">Like</a>
+              <a href="#">Comment</a>
+              <a href="#">Retweet</a>
+            </div>
+          </li>
+          <% } %> <% }); %>
+        </ul>
+      </div>
+      <div class="users-section">
+        <h2>Users</h2>
+        <ul class="users-list">
+          <% users.forEach(function(user) { %> <% if
+          (!(user.id===currentUser.id)) { %>
+          <li class="user">
+            <img
+              class="user-profile-image"
+              src="<%= user.profileImageUrl %>"
+              alt="User profile image"
+            />
+            <span class="user-username"><%= user.username %></span>
+            <button class="follow-button" data-user-id="<%= user.id %>">
+              <%= currentUser.following.includes(user.id) ? 'Following' :
+              'Follow' %>
+            </button>
+          </li>
+          <% } %> <% }); %>
+        </ul>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2023 Twitter Clone. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const body = document.querySelector('body');
+        const currentUser = JSON.parse(body.getAttribute('data-current-user'));
+
+        const followButtons = document.querySelectorAll('.follow-button');
+
+        followButtons.forEach((button) => {
+          button.addEventListener('click', async () => {
+            const userId = button.getAttribute('data-user-id');
+            const isFollowing = currentUser.following.includes(userId); // Corrected here
+
+            try {
+              const response = await fetch(
+                `/api/v1/user/${isFollowing ? 'unfollow' : 'follow'}/${userId}`, // Corrected here
+                {
+                  method: 'PATCH',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({}),
+                }
+              );
+
+              if (response.ok) {
+                // Toggle the button text
+                button.textContent = isFollowing ? 'Follow' : 'Following';
+                location.reload();
+
+                // Update currentUser's following array
+                if (isFollowing) {
+                  currentUser.following = currentUser.following.filter(
+                    (id) => id !== userId // Corrected here
+                  );
+                } else {
+                  currentUser.following.push(userId); // Corrected here
+                }
+              } else {
+                console.error('Failed to update follow status.');
+              }
+            } catch (error) {
+              console.error('An error occurred:', error);
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

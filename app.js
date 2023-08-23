@@ -11,14 +11,10 @@ const catchAsync = require('./utils/catchAsync');
 const Users = require('./model/userModel');
 const Tweets = require('./model/tweetModel');
 const { protect } = require('./controller/authController');
-const helmet = require('helmet');
-const mongoSanitize = require('mongo-sanitize');
-const xss = require('xss-clean');
+// const mongoSanitize = require('express-mongo-sanitize');
 
 const app = express();
 const PORT = 5000;
-
-app.use(helmet());
 
 app.set('view engine', 'ejs');
 app.set('views', path.resolve('./Frontend/views'));
@@ -28,8 +24,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(mongoSanitize());
-app.use(xss());
+// app.use(mongoSanitize());
+// app.use(xss());
 
 app.use(morgan('dev'));
 

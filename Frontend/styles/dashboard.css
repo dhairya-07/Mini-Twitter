@@ -179,3 +179,31 @@ body {
   font-size: 12px;
   color: #777;
 }
+
+/* ... your other CSS rules ... */
+
+.tweet-menu {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  flex-direction: column;
+}
+
+.tweet-action-button.menu-button:hover .tweet-menu {
+  display: flex;
+}
+
+.tweet-menu-option {
+  padding: 10px;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  cursor: pointer;
+}
+
+.tweet-menu-option:hover {
+  background-color: #f5f5f5;
+}

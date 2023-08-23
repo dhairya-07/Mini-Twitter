@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const password = document.getElementById('password').value;
 
     try {
-      const response = await fetch('http://localhost:5000/api/v1/user/login', {
+      const response = await fetch('/api/v1/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
 
-      if (response.url !== 'http://localhost:5000/api/v1/user/login') {
+      if (response.redirected) {
         // Redirect to the new URL
         window.location.href = response.url;
         return; // Exit the function to prevent further handling

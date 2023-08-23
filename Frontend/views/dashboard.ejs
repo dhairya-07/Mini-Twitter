@@ -57,7 +57,7 @@
             <div class="tweet-user">
               <img
                 class="tweet-user-image"
-                src="https://placehold.it/40x40"
+                src="<%= user.profileImageUrl %>"
                 alt="User image"
               />
               <span class="tweet-username"><%= user.username %></span>
@@ -77,6 +77,8 @@
               </div>
               <% } %>
             </div>
+            <!-- ... your other tweet content ... -->
+
             <div class="tweet-actions">
               <button class="tweet-action-button">
                 <span class="action-icon">Like</span
@@ -86,9 +88,14 @@
                 <span class="action-icon">Retweet</span
                 ><span class="action-count"><%= tweet.Retweets %></span>
               </button>
-              <button class="tweet-action-button">
-                <span class="action-icon">Comment</span
-                ><span class="action-count"><%= tweet.comments.length %></span>
+              <button class="tweet-action-button menu-button">
+                <span class="action-icon">Menu</span>
+                <div class="tweet-menu">
+                  <button class="tweet-menu-option edit-option">Edit</button>
+                  <button class="tweet-menu-option delete-option">
+                    Delete
+                  </button>
+                </div>
               </button>
             </div>
           </li>

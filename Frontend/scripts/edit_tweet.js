@@ -17,8 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       if (response.ok) {
-        // Redirect the user to the tweet's detail page or update the DOM
-        // as needed based on your application flow.
+        window.location.href = `/api/v1/tweet/${tweetId}`;
         console.log('Tweet content updated successfully');
       } else {
         console.error('Failed to update tweet content');

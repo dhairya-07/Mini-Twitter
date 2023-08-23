@@ -61,12 +61,10 @@ const getTweet = catchAsync(async (req, res, next) => {
 const editTweet = catchAsync(async (req, res, next) => {
   const tweet = await Tweets.findById(req.params.id);
   const updatedTweetContent = req.body.content;
-  console.log(updatedTweetContent);
   tweet.content = updatedTweetContent;
   await tweet.save();
-  return res
-    .status(200)
-    .json({ status: 'Success', tweet: updatedTweetContent });
+  console.log('Edited Tweet saved');
+  return res.redirect(`/api/v1/tweet/${tweet._id}`);
 });
 
 const deleteTweet = catchAsync(async (req, res, next) => {

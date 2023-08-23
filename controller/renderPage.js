@@ -31,10 +31,19 @@ const get_tweet = catchAsync(async (req, res, next) => {
   });
 });
 
+const edit_tweet = catchAsync(async (req, res, next) => {
+  const tweet = await Tweets.findById(req.params.id);
+  return res.render('edit_tweet', {
+    user: req.user,
+    tweet,
+  });
+});
+
 module.exports = {
   signup_page,
   login_page,
   user_dashboard,
   create_tweet,
   get_tweet,
+  edit_tweet,
 };

@@ -63,8 +63,7 @@ const editTweet = catchAsync(async (req, res, next) => {
   const updatedTweetContent = req.body.content;
   tweet.content = updatedTweetContent;
   await tweet.save();
-  console.log('Edited Tweet saved');
-  return res.redirect(`/api/v1/tweet/${tweet._id}`);
+  return res.status(200).json({ status: 'Success', tweet });
 });
 
 const deleteTweet = catchAsync(async (req, res, next) => {

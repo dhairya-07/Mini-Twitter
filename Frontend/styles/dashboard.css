@@ -153,11 +153,12 @@ body {
   margin-top: 10px;
 }
 
-/* ... your other CSS rules ... */
+/* ... your existing CSS rules ... */
 
 .tweet-actions {
   display: flex;
   justify-content: space-between;
+  align-items: center; /* Add alignment for the menu */
   margin-top: 10px;
 }
 
@@ -167,6 +168,7 @@ body {
   cursor: pointer;
   display: flex;
   align-items: center;
+  position: relative; /* Add relative positioning */
 }
 
 .action-icon {
@@ -180,30 +182,45 @@ body {
   color: #777;
 }
 
-/* ... your other CSS rules ... */
-
 .tweet-menu {
+  position: relative;
+}
+
+.tweet-menu-options {
   display: none;
   position: absolute;
+  right: 0;
+  top: 100%; /* Position the menu below the button */
   background-color: white;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  flex-direction: column;
+  border-radius: 5px;
+  min-width: 150px; /* Adjusted for a slightly wider menu */
+  padding: 8px; /* Add some padding for better appearance */
 }
 
-.tweet-action-button.menu-button:hover .tweet-menu {
-  display: flex;
+.tweet-action-button:hover .tweet-menu-options {
+  display: block;
+  opacity: 1;
+  transform: translateY(5px);
 }
 
 .tweet-menu-option {
-  padding: 10px;
+  padding: 8px;
   text-align: left;
   border: none;
   background-color: transparent;
   width: 100%;
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .tweet-menu-option:hover {
   background-color: #f5f5f5;
+  color: #333;
+}
+
+.show-options {
+  display: flex; /* Show when the class is applied */
+  flex-direction: column; /* Display options vertically */
 }

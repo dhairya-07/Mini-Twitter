@@ -77,26 +77,38 @@
               </div>
               <% } %>
             </div>
-            <!-- ... your other tweet content ... -->
-
             <div class="tweet-actions">
-              <button class="tweet-action-button">
+              <button class="tweet-action-button" type="button">
                 <span class="action-icon">Like</span
                 ><span class="action-count"><%= tweet.likes %></span>
               </button>
-              <button class="tweet-action-button">
+              <button class="tweet-action-button" type="button">
                 <span class="action-icon">Retweet</span
                 ><span class="action-count"><%= tweet.Retweets %></span>
               </button>
-              <button class="tweet-action-button menu-button">
-                <span class="action-icon">Menu</span>
-                <div class="tweet-menu">
-                  <button class="tweet-menu-option edit-option">Edit</button>
-                  <button class="tweet-menu-option delete-option">
+              <!-- ... (previous HTML code) ... -->
+              <div class="tweet-menu">
+                <button class="tweet-action-button menu-button" type="button">
+                  <span class="action-icon">Menu</span>
+                </button>
+                <div class="tweet-menu-options">
+                  <button
+                    class="tweet-menu-option edit-option"
+                    type="button"
+                    data-tweet-id="<%= tweet.id %>"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    class="tweet-menu-option delete-option"
+                    type="button"
+                    data-tweet-id="<%= tweet.id %>"
+                  >
                     Delete
                   </button>
                 </div>
-              </button>
+              </div>
+              <!-- ... (rest of the HTML code) ... -->
             </div>
           </li>
           <% }); %>
@@ -108,5 +120,6 @@
         <p>&copy; 2023 Twitter Clone. All rights reserved.</p>
       </div>
     </footer>
+    <script src="/scripts/edit_delete_tweet.js"></script>
   </body>
 </html>

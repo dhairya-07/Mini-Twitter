@@ -6,7 +6,7 @@ const AppError = require('../utils/AppError');
 
 const signToken = (payload) => {
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN * 24 * 60 * 60 * 1000,
+    expiresIn: process.env.JWT_EXPIRES_IN,
   });
   return token;
 };
@@ -17,7 +17,7 @@ const createSendToken = (user, res, statusCode) => {
 
   const cookieOptions = {
     httpOnly: true,
-    expiresIn: process.env.COOKIE_EXPIRES_IN,
+    expiresIn: process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     secure: true,
   };
 

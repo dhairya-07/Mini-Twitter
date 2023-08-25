@@ -14,6 +14,12 @@ const getAllUsers = catchAsync(async (req, res, next) => {
   });
 });
 
+const getUser = catchAsync(async (req, res, next) => {
+  const user = await Users.findById(req.params.id);
+  console.log(user);
+  return res.redirect(`/api/v1/user/profile/${user.id}`);
+});
+
 const follow = catchAsync(async (req, res, next) => {
   const userToBeFollowed = await Users.findById(req.params.id);
 
@@ -80,4 +86,4 @@ const unfollow = catchAsync(async (req, res, next) => {
   });
 });
 
-module.exports = { getAllUsers, follow, unfollow };
+module.exports = { getAllUsers, getUser, follow, unfollow };

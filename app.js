@@ -55,7 +55,6 @@ app.get(
         { createdBy: req.user.id },
       ],
     });
-    console.log(tweets);
     return res.render('home', {
       users,
       tweets,

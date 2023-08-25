@@ -50,7 +50,10 @@ app.get(
     const users = await Users.find({});
     // console.log(req.user.following);
     const tweets = await Tweets.find({
-      createdBy: { $in: req.user.following },
+      $or: [
+        { createdBy: { $in: req.user.following } },
+        { createdBy: req.user.id },
+      ],
     });
     console.log(tweets);
     return res.render('home', {

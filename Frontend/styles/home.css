@@ -108,6 +108,14 @@ body {
   vertical-align: middle;
 }
 
+.user-username {
+  display: inline-block;
+  padding: 5px 10px;
+  color: #007bff;
+  text-decoration: none; /* Remove underlined text decoration */
+  cursor: pointer;
+}
+
 .tweet-user-image,
 .user-profile-image {
   width: 40px;

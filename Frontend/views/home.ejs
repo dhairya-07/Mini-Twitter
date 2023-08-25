@@ -29,10 +29,9 @@
     <div class="container">
       <div class="tweets-section">
         <ul class="tweets-list">
-          <% tweets.forEach(function(tweet) { %> <% if
-          (currentUser.following.includes(tweet.createdBy.id) ||
-          currentUser.id===tweet.createdBy.id) { %>
+          <% tweets.forEach(function(tweet) { %>
           <li class="tweet">
+            <!-- Tweet user info -->
             <div class="tweet-user">
               <img
                 class="tweet-user-image"
@@ -41,13 +40,17 @@
               />
               <span class="tweet-username"><%=tweet.createdBy.username%></span>
             </div>
+
+            <!-- Tweet date -->
             <div class="tweet-date">
               <p>
                 Posted on: <%= tweet.createdAt.toLocaleString("en-US", {
-                weekday: "long", year: "numeric", month: "long", day: "numeric",
+                weekday: "long", year: "numeric", month: "long", day: "numeric"
                 }) %>
               </p>
             </div>
+
+            <!-- Tweet content -->
             <div class="tweet-content">
               <p><%= tweet.content %></p>
               <% if (tweet.media) { %>
@@ -57,13 +60,15 @@
               />
               <% } %>
             </div>
+
+            <!-- Tweet actions -->
             <div class="tweet-actions">
               <a href="#">Like</a>
               <a href="#">Comment</a>
               <a href="#">Retweet</a>
             </div>
           </li>
-          <% } %> <% }); %>
+          <% }); %>
         </ul>
       </div>
       <div class="users-section">
@@ -77,7 +82,10 @@
               src="<%= user.profileImageUrl %>"
               alt="User profile image"
             />
-            <span class="user-username"><%= user.username %></span>
+            <a href="/api/v1/user/<%= user.id %>" class="user-username">
+              <!-- Use user.username as the button text -->
+              <%= user.username %>
+            </a>
             <button class="follow-button" data-user-id="<%= user.id %>">
               <%= currentUser.following.includes(user.id) ? 'Following' :
               'Follow' %>

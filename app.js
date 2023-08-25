@@ -48,7 +48,14 @@ app.get(
   protect,
   catchAsync(async (req, res, next) => {
     const users = await Users.find({});
-    const tweets = await Tweets.find({}).sort({ createdAt: -1 });
+    // console.log(req.user.following);
+    const tweets = await Tweets.find({
+      $or: [
+        { createdBy: { $in: req.user.following } },
+        { createdBy: req.user.id },
+      ],
+    });
+    console.log(tweets);
     return res.render('home', {
       users,
       tweets,

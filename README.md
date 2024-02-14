@@ -21,3 +21,8 @@ Hit the route-``` localhost:5000/api/v1/user/signup ``` to create a new user
 Users can edit and delete their tweets by visiting their profile page and clicking the menu option and choosing appropriate action
 
 You can now visit other people's profile as well
+
+## Signup Page
+
+## Login Page
+![image](https://github.com/dhairya-07/Mini-Twitter/assets/74531541/593f2a44-8990-45ba-8dc2-c7e46e687698)
